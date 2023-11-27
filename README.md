@@ -2,6 +2,10 @@
 
 This template showcases how to take advantage of nix to smooth out some rough edges when working with CI (Github Actions) and deploying to a cloud provider (Vercel).
 
+## Who is this for?
+
+The target audience are those who want to deploy a non-trivial web app to a platform like Vercel (or Cloudflare, Netlify, etc) and have it tested in CI. The primary benefit of this approach is that it lets you avoid having to carefully tiptoe around three different environments: your local machine, the Github Actions runner, and Vercel's build environment.
+
 ## Features
 
 - ☮️ Simplifies your CI workflow using nix. ([example](./.github/workflows/ci.yml))
@@ -9,7 +13,20 @@ This template showcases how to take advantage of nix to smooth out some rough ed
 - 🤹 Avoids having to tiptoe around three different environments (your local dev environment, Github Actions runner, Vercel's build environment) by using a single, locally reproducible one.
 - ♻️ Auto deploys to vercel on push/PR and comments with the URL to the preview deployment using [`vercel-action`](https://github.com/amondnet/vercel-action).
 
+## What
+
+Most of the files in this repo are irrelevant (from the demo sveltekit app created with `npm create svelte@latest myapp`), so you should only care about the following files:
+
+- [ci.yml](./.github/workflows/ci.yml): The github action lint and test our app.
+- [deploy.yml](./.github/workflows/deploy.yml): The github action to build and deploy our app to vercel.
+- [flake.nix](./flake.nix): The declarative nix configuration.
+
 ## Why
+
+While the concept itself reaches further than this specific example, I focus on it from a web dev point of view. Specifically I shed light on how it tames rough edges like:
+
+- configuring non-trivial tools (`playwright` in this example) locally vs configuring it in CI
+- using tools that are not available on Vercel's build environment
 
 ### The problem
 
